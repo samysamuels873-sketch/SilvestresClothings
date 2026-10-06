@@ -6,11 +6,7 @@
     <title>Silvestre's Clothings | Elegancia con Instinto</title>
     <style>
         /* --- RESET & VARIABLES --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --verde-silvestre: #1D3D2B;
@@ -18,483 +14,355 @@
             --marfil: #EBEADE;
             --plata: #D2D1C4;
             --verde-profundo: #161E17;
-            --fuente-titulos: 'Playfair Display', serif; /* Serif elegante */
-            --fuente-texto: 'Inter', sans-serif; /* Sans serif limpia */
+            --fuente-titulos: 'Playfair Display', serif;
+            --fuente-texto: 'Inter', sans-serif;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--marfil);
             color: var(--carbon);
             font-family: var(--fuente-texto);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
 
-        ul {
-            list-style: none;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
 
-        /* --- UTILIDADES --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        /* --- BOTONES --- */
         .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background-color: var(--verde-silvestre);
-            color: var(--marfil);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
-            border: 1px solid var(--verde-silvestre);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            display: inline-block; padding: 16px 40px;
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;
+            font-size: 0.8rem; border: 1px solid var(--verde-silvestre);
+            transition: all 0.4s ease; cursor: pointer;
         }
-
-        .btn:hover {
-            background-color: transparent;
-            color: var(--verde-silvestre);
-        }
+        .btn:hover { background-color: transparent; color: var(--verde-silvestre); }
 
         .btn-outline {
-            background-color: transparent;
-            color: var(--verde-silvestre);
+            background-color: transparent; color: var(--verde-silvestre);
             border: 1px solid var(--verde-silvestre);
         }
+        .btn-outline:hover { background-color: var(--verde-silvestre); color: var(--marfil); }
 
-        .btn-outline:hover {
-            background-color: var(--verde-silvestre);
-            color: var(--marfil);
-        }
-
+        /* --- TÍTULOS --- */
         .section-title {
-            font-family: var(--fuente-titulos);
-            font-size: 2.5rem;
-            font-weight: 400;
-            color: var(--verde-silvestre);
-            margin-bottom: 1rem;
-            text-align: center;
+            font-family: var(--fuente-titulos); font-size: 2.8rem;
+            font-weight: 400; color: var(--verde-silvestre);
+            margin-bottom: 1rem; text-align: center; letter-spacing: 1px;
         }
 
         .section-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: var(--carbon);
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            text-align: center; font-size: 1.05rem; font-weight: 300;
+            color: #666; margin-bottom: 4rem; max-width: 650px;
+            margin-left: auto; margin-right: auto; line-height: 1.8;
         }
 
         /* --- HEADER / NAV --- */
         header {
-            background-color: var(--carbon);
-            color: var(--marfil);
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(235, 234, 222, 0.1);
+            background-color: var(--carbon); color: var(--marfil);
+            padding: 18px 0; position: fixed; width: 100%; top: 0;
+            z-index: 1000; border-bottom: 1px solid rgba(235, 234, 222, 0.08);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-text {
+            font-family: var(--fuente-titulos); font-size: 1.5rem;
+            font-weight: 700; letter-spacing: 3px; color: var(--marfil); line-height: 1;
+        }
+        .logo-text span {
+            font-weight: 300; font-size: 0.65rem; display: block;
+            letter-spacing: 5px; text-transform: uppercase; color: var(--plata);
+            margin-top: 4px;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--fuente-titulos);
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--marfil);
-        }
-
-        .logo span {
-            font-weight: 300;
-            font-size: 0.8rem;
-            display: block;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--plata);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
+        .nav-links { display: flex; gap: 30px; }
         .nav-links a {
-            font-size: 0.9rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--plata);
-            transition: color 0.3s;
+            font-size: 0.75rem; font-weight: 400; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--plata); transition: color 0.3s;
+            position: relative;
         }
-
-        .nav-links a:hover {
-            color: var(--marfil);
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 1px; background-color: var(--marfil);
+            transition: width 0.3s;
         }
+        .nav-links a:hover { color: var(--marfil); }
+        .nav-links a:hover::after { width: 100%; }
 
         .nav-cta {
-            font-size: 0.8rem;
-            padding: 10px 20px;
-            border: 1px solid var(--plata);
-            color: var(--plata);
-            transition: all 0.3s;
+            font-size: 0.7rem; padding: 10px 20px; border: 1px solid var(--plata);
+            color: var(--plata); transition: all 0.3s; letter-spacing: 1px;
+            text-transform: uppercase;
         }
+        .nav-cta:hover { background-color: var(--marfil); color: var(--carbon); border-color: var(--marfil); }
 
-        .nav-cta:hover {
-            background-color: var(--marfil);
-            color: var(--carbon);
-            border-color: var(--marfil);
+        /* --- LOGO DESTACADO (POLAROID) --- */
+        .logo-showcase { padding: 120px 0 80px; background-color: var(--carbon); text-align: center; }
+        
+        .logo-polaroid {
+            display: inline-block; background-color: #fff;
+            padding: 30px 30px 70px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 4px; transform: rotate(-1.5deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative; max-width: 500px; width: 90%;
+        }
+        .logo-polaroid img { width: 100%; height: auto; display: block; border-radius: 2px; }
+        .logo-polaroid:hover { transform: rotate(0deg) scale(1.02); box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+        .logo-polaroid::before {
+            content: ""; position: absolute; top: -12px; left: 50%;
+            transform: translateX(-50%); width: 90px; height: 25px;
+            background-color: rgba(235, 234, 222, 0.8);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 2px;
         }
 
         /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(22, 30, 23, 0.7), rgba(22, 30, 23, 0.8)), url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--marfil);
-            padding-top: 80px;
+            background: linear-gradient(rgba(22, 30, 23, 0.65), rgba(22, 30, 23, 0.75)), url('https://i.imgur.com/OGUN9zU.jpg') center/cover no-repeat;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: var(--marfil); padding-top: 80px;
         }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
+        .hero-content { max-width: 900px; padding: 0 24px; }
         .hero h1 {
-            font-family: var(--fuente-titulos);
-            font-size: 4.5rem;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
+            font-family: var(--fuente-titulos); font-size: 5rem;
+            font-weight: 400; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: 2px;
         }
+        .hero h1 span { font-style: italic; font-weight: 700; }
+        .hero p { font-size: 1.2rem; font-weight: 300; margin-bottom: 3rem; color: var(--plata); letter-spacing: 2px; }
+        .hero .btn { background-color: var(--marfil); color: var(--carbon); border-color: var(--marfil); }
+        .hero .btn:hover { background-color: transparent; color: var(--marfil); }
 
-        .hero h1 span {
-            font-style: italic;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            font-weight: 300;
-            margin-bottom: 2.5rem;
-            color: var(--plata);
-            letter-spacing: 1px;
-        }
-
-        .hero .btn {
-            background-color: var(--marfil);
-            color: var(--carbon);
-            border-color: var(--marfil);
-        }
-
-        .hero .btn:hover {
-            background-color: transparent;
-            color: var(--marfil);
-        }
-
-        /* --- IDENTITY / PILARES --- */
-        .identity {
-            padding: 100px 0;
-            background-color: var(--marfil);
-        }
-
+        /* --- IDENTIDAD / PILARES --- */
+        .identity { padding: 120px 0; background-color: var(--marfil); }
         .identity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px; margin-top: 60px;
         }
-
         .identity-card {
-            text-align: center;
-            padding: 30px 20px;
-            border: 1px solid rgba(29, 61, 43, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center; padding: 40px 20px;
+            transition: transform 0.4s, box-shadow 0.4s; background-color: #fff;
+            border: 1px solid rgba(29, 61, 43, 0.06);
         }
-
-        .identity-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(29, 61, 43, 0.05);
-        }
-
-        .identity-card h3 {
-            font-family: var(--fuente-titulos);
-            font-size: 1.5rem;
-            color: var(--verde-silvestre);
-            margin-bottom: 15px;
-        }
-
-        .identity-card p {
-            font-size: 0.95rem;
-            color: #555;
-            font-weight: 300;
-        }
-
+        .identity-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(29, 61, 43, 0.08); }
+        .identity-card h3 { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--verde-silvestre); margin-bottom: 12px; }
+        .identity-card p { font-size: 0.9rem; color: #777; font-weight: 300; }
         .icon-placeholder {
-            font-size: 2.5rem;
-            color: var(--verde-silvestre);
-            margin-bottom: 20px;
-            display: inline-block;
-            border-bottom: 2px solid var(--plata);
-            padding-bottom: 10px;
+            font-size: 2.2rem; color: var(--verde-silvestre); margin-bottom: 20px;
+            display: inline-block; border-bottom: 2px solid var(--plata); padding-bottom: 10px;
         }
 
-        /* --- COLECCIÓN / PRODUCTO --- */
-        .collection {
-            padding: 100px 0;
-            background-color: #f7f7f5;
+        /* --- MENSAJE CENTRAL --- */
+        .central-message {
+            padding: 120px 0; background-color: var(--verde-silvestre);
+            color: var(--marfil); text-align: center;
+        }
+        .central-message h2 {
+            font-family: var(--fuente-titulos); font-size: 3.5rem;
+            font-weight: 400; margin-bottom: 30px;
+        }
+        .central-message p {
+            font-size: 1.2rem; font-weight: 300; max-width: 800px;
+            margin: 0 auto 20px; opacity: 0.9;
+        }
+        .central-message .promise {
+            font-style: italic; font-size: 1.1rem;
+            margin-top: 30px; opacity: 0.8;
         }
 
+        /* --- COLECCIÓN --- */
+        .collection { padding: 120px 0; background-color: #f7f7f5; }
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px; margin-top: 60px;
         }
-
         .product-card {
-            background-color: var(--marfil);
-            border: 1px solid rgba(0,0,0,0.05);
-            overflow: hidden;
-            transition: transform 0.3s;
+            background-color: #fff; border: 1px solid rgba(0,0,0,0.04);
+            overflow: hidden; transition: transform 0.4s, box-shadow 0.4s;
         }
-
-        .product-card:hover {
-            transform: scale(1.02);
-        }
-
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .product-image {
-            width: 100%;
-            height: 350px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            position: relative;
+            width: 100%; height: 380px; background-color: #f0f0f0;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .product-card:hover .product-image img { transform: scale(1.06); }
+        .product-info { padding: 30px; text-align: center; }
+        .product-info h4 { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--verde-silvestre); margin-bottom: 8px; }
+        .product-info p { font-size: 0.9rem; color: #888; margin-bottom: 15px; font-weight: 300; }
+        .product-info .price { font-weight: 600; color: var(--carbon); font-size: 1.15rem; margin-bottom: 20px; display: block; letter-spacing: 1px; }
+
+        /* --- LIFESTYLE --- */
+        .lifestyle { padding: 120px 0; background-color: var(--marfil); }
+        .lifestyle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .lifestyle-image { width: 100%; height: 550px; border-radius: 4px; overflow: hidden; }
+        .lifestyle-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .lifestyle-image:hover img { transform: scale(1.04); }
+        .lifestyle-text h3 { font-family: var(--fuente-titulos); font-size: 2.2rem; color: var(--verde-silvestre); margin-bottom: 25px; line-height: 1.3; }
+        .lifestyle-text p { color: #666; margin-bottom: 25px; font-weight: 300; font-size: 1.05rem; line-height: 1.8; }
+
+        /* --- EXPERIENCIA (POLAROID) --- */
+        .experience { padding: 120px 0; background-color: var(--carbon); color: var(--marfil); }
+        .experience .section-title { color: var(--marfil); }
+        .experience .section-subtitle { color: var(--plata); }
+        
+        .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; margin-top: 60px; }
+        .experience-text h3 { font-family: var(--fuente-titulos); font-size: 2rem; color: var(--marfil); margin-bottom: 25px; line-height: 1.3; }
+        .experience-text p { color: var(--plata); font-weight: 300; margin-bottom: 25px; line-height: 1.8; }
+        .experience-text ul { margin-bottom: 30px; }
+        .experience-text ul li { color: var(--plata); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 300; }
+        .experience-text ul li::before { content: "✦"; color: var(--verde-silvestre); font-size: 1.1rem; }
+        .experience-text .quote { font-style: italic; color: var(--plata); margin-top: 25px; font-size: 1.1rem; }
+
+        .polaroid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; align-items: start; }
+        .polaroid-item {
+            background-color: #fff; padding: 18px 18px 50px 18px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); border-radius: 4px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease; position: relative;
+        }
+        .polaroid-item img { width: 100%; height: auto; display: block; border-radius: 2px; object-fit: contain; }
+        .polaroid-item.full-width { grid-column: span 2; transform: rotate(-1deg); }
+        .polaroid-item.full-width img { height: 450px; object-fit: contain; background-color: #f0f0f0; }
+        .polaroid-item:nth-child(2) { transform: rotate(2deg); }
+        .polaroid-item:nth-child(3) { transform: rotate(-2deg); }
+        .polaroid-item:hover { transform: rotate(0deg) scale(1.03); box-shadow: 0 20px 45px rgba(0,0,0,0.5); z-index: 10; }
+        .polaroid-item::before {
+            content: ""; position: absolute; top: -10px; left: 50%;
+            transform: translateX(-50%); width: 70px; height: 22px;
+            background-color: rgba(235, 234, 222, 0.75);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 2px;
         }
 
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 25px;
+        /* --- GATO SIL V --- */
+        .silv-section {
+            padding: 120px 0; background-color: #f7f7f5;
             text-align: center;
         }
-
-        .product-info h4 {
-            font-family: var(--fuente-titulos);
-            font-size: 1.4rem;
-            color: var(--verde-silvestre);
-            margin-bottom: 5px;
-        }
-
-        .product-info p {
-            font-size: 0.9rem;
-            color: #777;
-            margin-bottom: 15px;
-        }
-
-        .product-info .price {
-            font-weight: 600;
-            color: var(--carbon);
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        /* --- EXPERIENCIA / SENSORIAL --- */
-        .experience {
-            padding: 100px 0;
-            background-color: var(--carbon);
-            color: var(--marfil);
-        }
-
-        .experience .section-title {
-            color: var(--marfil);
-        }
-
-        .experience .section-subtitle {
-            color: var(--plata);
-        }
-
-        .experience-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-top: 50px;
-        }
-
-        .experience-text h3 {
-            font-family: var(--fuente-titulos);
-            font-size: 2rem;
-            color: var(--marfil);
+        .silv-section h2 {
+            font-family: var(--fuente-titulos); font-size: 3rem;
+            font-weight: 400; color: var(--verde-silvestre);
             margin-bottom: 20px;
         }
-
-        .experience-text p {
-            color: var(--plata);
-            font-weight: 300;
-            margin-bottom: 20px;
+        .silv-section p {
+            font-size: 1.05rem; color: #666;
+            max-width: 700px; margin: 0 auto 60px;
+            font-weight: 300; line-height: 1.8;
         }
-
-        .experience-text ul {
-            margin-bottom: 30px;
+        .silv-image {
+            max-width: 500px; margin: 0 auto;
+            border-radius: 8px; overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
+        .silv-image img { width: 100%; height: auto; display: block; }
 
-        .experience-text ul li {
-            color: var(--plata);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* --- ESTAMOS CONTIGO --- */
+        .with-you { padding: 120px 0; background-color: var(--marfil); }
+        .with-you-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 60px;
         }
+        .with-you-item {
+            background-color: #fff; border-radius: 4px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: transform 0.4s;
+        }
+        .with-you-item:hover { transform: translateY(-8px); }
+        .with-you-item img { width: 100%; height: 450px; object-fit: cover; display: block; }
+        .with-you-item-text { padding: 30px; text-align: center; }
+        .with-you-item-text h4 { font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--verde-silvestre); margin-bottom: 12px; }
+        .with-you-item-text p { font-size: 0.95rem; color: #777; font-weight: 300; }
 
-        .experience-text ul li::before {
-            content: "✦";
-            color: var(--verde-silvestre);
-            font-size: 1.2rem;
+        /* --- LOOKS --- */
+        .look-ideas { padding: 120px 0; background-color: #f7f7f5; }
+        .look-ideas-image {
+            max-width: 1000px; margin: 0 auto; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
         }
+        .look-ideas-image img { width: 100%; height: auto; display: block; }
 
-        .experience-image {
-            height: 500px;
-            background-color: #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            border-radius: 4px;
-            overflow: hidden;
-        }
+        /* --- PÚBLICO OBJETIVO --- */
+        .target { padding: 120px 0; background-color: var(--marfil); }
+        .target-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .target-text h3 { font-family: var(--fuente-titulos); font-size: 2.2rem; color: var(--verde-silvestre); margin-bottom: 25px; }
+        .target-text p { color: #666; margin-bottom: 20px; font-weight: 300; font-size: 1.05rem; line-height: 1.8; }
+        .target-text ul { margin-top: 30px; }
+        .target-text ul li { color: #555; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 300; }
+        .target-text ul li::before { content: "✦"; color: var(--verde-silvestre); font-size: 1rem; }
+        .target-image { width: 100%; height: 500px; border-radius: 4px; overflow: hidden; }
+        .target-image img { width: 100%; height: 100%; object-fit: cover; }
 
-        .experience-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
+        /* --- RSE --- */
+        .rse { padding: 120px 0; background-color: var(--verde-silvestre); color: var(--marfil); }
+        .rse .section-title { color: var(--marfil); }
+        .rse .section-subtitle { color: var(--plata); }
+        .rse-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px; margin-top: 60px;
         }
+        .rse-card {
+            background-color: rgba(235, 234, 222, 0.08);
+            padding: 40px 30px; border: 1px solid rgba(235, 234, 222, 0.15);
+            transition: background-color 0.3s;
+        }
+        .rse-card:hover { background-color: rgba(235, 234, 222, 0.15); }
+        .rse-card h4 { font-family: var(--fuente-titulos); font-size: 1.3rem; color: var(--marfil); margin-bottom: 15px; }
+        .rse-card p { font-size: 0.9rem; color: var(--plata); font-weight: 300; line-height: 1.7; }
 
         /* --- CTA / CONTACTO --- */
-        .cta-section {
-            padding: 100px 0;
-            background-color: var(--verde-silvestre);
-            color: var(--marfil);
-            text-align: center;
+        .cta-section { padding: 120px 0; background-color: var(--marfil); text-align: center; }
+        .cta-section h2 { font-family: var(--fuente-titulos); font-size: 3.2rem; font-weight: 400; color: var(--verde-silvestre); margin-bottom: 1.2rem; letter-spacing: 1px; }
+        .cta-section p { font-size: 1.15rem; font-weight: 300; margin-bottom: 3rem; color: #666; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .social-links { 
+            margin-top: 40px; display: flex; justify-content: center; gap: 40px; 
         }
-
-        .cta-section h2 {
-            font-family: var(--fuente-titulos);
-            font-size: 3rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
+        .social-links a { 
+            color: var(--carbon); font-size: 1rem; 
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 24px; border: 1px solid var(--carbon);
+            border-radius: 4px; transition: all 0.3s;
         }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            color: var(--plata);
+        .social-links a:hover { 
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            border-color: var(--verde-silvestre);
         }
-
-        .cta-section .btn {
-            background-color: var(--marfil);
-            color: var(--verde-silvestre);
-            border-color: var(--marfil);
-            font-size: 1rem;
-            padding: 16px 40px;
-        }
-
-        .cta-section .btn:hover {
-            background-color: transparent;
-            color: var(--marfil);
-        }
+        .social-links svg { width: 20px; height: 20px; fill: currentColor; }
 
         /* --- FOOTER --- */
-        footer {
-            background-color: var(--carbon);
-            color: var(--plata);
-            padding: 60px 0 30px;
-            font-size: 0.9rem;
+        footer { background-color: var(--carbon); color: var(--plata); padding: 80px 0 40px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 50px; }
+        .footer-col h4 { color: var(--marfil); font-family: var(--fuente-titulos); font-size: 1.2rem; margin-bottom: 25px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { transition: color 0.3s; }
+        .footer-col ul li a:hover { color: var(--marfil); }
+        .footer-social { display: flex; gap: 15px; margin-top: 15px; }
+        .footer-social a { 
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border: 1px solid rgba(235, 234, 222, 0.2);
+            border-radius: 50%; transition: all 0.3s;
         }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-col h4 {
-            color: var(--marfil);
-            font-family: var(--fuente-titulos);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--marfil);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(235, 234, 222, 0.1);
-            padding-top: 30px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #777;
-        }
+        .footer-social a:hover { background-color: var(--marfil); color: var(--carbon); border-color: var(--marfil); }
+        .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
+        .footer-bottom { border-top: 1px solid rgba(235, 234, 222, 0.08); padding-top: 40px; text-align: center; font-size: 0.8rem; color: #777; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            .hero p {
-                font-size: 1rem;
-            }
-            .nav-links {
-                display: none; /* Simplificación para móvil */
-            }
-            .experience-grid {
-                grid-template-columns: 1fr;
-            }
-            .experience-image {
-                height: 300px;
-            }
-            .section-title {
-                font-size: 2rem;
-            }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1rem; }
+            .nav-links { display: none; }
+            .experience-grid, .lifestyle-grid, .with-you-grid, .target-grid { grid-template-columns: 1fr; }
+            .polaroid-container { grid-template-columns: 1fr; }
+            .polaroid-item.full-width { grid-column: span 1; }
+            .polaroid-item.full-width img { height: 250px; }
+            .section-title { font-size: 2rem; }
+            .logo-text { font-size: 1.1rem; }
+            .social-links { flex-direction: column; align-items: center; gap: 20px; }
         }
     </style>
 </head>
@@ -504,18 +372,33 @@
     <header>
         <div class="container nav-container">
             <div class="logo">
-                SILVESTRE'S
-                <span>Clothing</span>
+                <div class="logo-text">
+                    SILVESTRE'S
+                    <span>Clothing</span>
+                </div>
             </div>
             <nav class="nav-links">
                 <a href="#identidad">Identidad</a>
                 <a href="#coleccion">Colección</a>
+                <a href="#lifestyle">Estilo</a>
                 <a href="#experiencia">Experiencia</a>
+                <a href="#silv">Sil V</a>
+                <a href="#contigo">Contigo</a>
+                <a href="#looks">Looks</a>
                 <a href="#contacto">Contacto</a>
             </nav>
             <a href="#contacto" class="nav-cta">Descubre</a>
         </div>
     </header>
+
+    <!-- LOGO DESTACADO (POLAROID) -->
+    <section class="logo-showcase">
+        <div class="container">
+            <div class="logo-polaroid">
+                <img src="https://i.imgur.com/jhBYae8.jpg" alt="Logo Oficial Silvestre's Clothing">
+            </div>
+        </div>
+    </section>
 
     <!-- HERO SECTION -->
     <section class="hero">
@@ -526,7 +409,7 @@
         </div>
     </section>
 
-    <!-- IDENTITY / PILARES -->
+    <!-- IDENTIDAD / PILARES -->
     <section id="identidad" class="identity">
         <div class="container">
             <h2 class="section-title">Nuestra Esencia</h2>
@@ -561,53 +444,105 @@
         </div>
     </section>
 
+    <!-- MENSAJE CENTRAL -->
+    <section class="central-message">
+        <div class="container">
+            <h2>Elegancia con Instinto.</h2>
+            <p>Silvestre's Clothings representa una forma de vestir con calidad, autenticidad y sofisticación, para personas que expresan su estilo con seguridad y carácter propio.</p>
+            <p class="promise">"Ofrecer prendas esenciales de calidad que combinan comodidad, durabilidad, diseño minimalista y una identidad sofisticada."</p>
+        </div>
+    </section>
+
     <!-- COLECCIÓN -->
     <section id="coleccion" class="collection">
         <div class="container">
             <h2 class="section-title">Luxury Basics</h2>
             <p class="section-subtitle">Prendas esenciales que combinan comodidad, durabilidad y un diseño sofisticado. Descubre la colección.</p>
             <div class="product-grid">
-                <!-- Producto 1 -->
+                <!-- Producto 1: Rosa -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1780&auto=format&fit=crop" alt="Playera Básica Negra">
+                        <img src="https://i.imgur.com/Uu8ufXj.jpg" alt="Playera Rosa Silvestre's">
                     </div>
                     <div class="product-info">
-                        <h4>Playera Esencial</h4>
+                        <h4>Playera Rosa</h4>
                         <p>100% Algodón peinado. Corte minimalista.</p>
-                        <span class="price">Q 179.00</span>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.8rem;">Ver Detalles</a>
+                        <span class="price">Q 150.00</span>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
-                <!-- Producto 2 -->
+                <!-- Producto 2: Azul Claro -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1887&auto=format&fit=crop" alt="Playera Básica Blanca">
+                        <img src="https://i.imgur.com/hoEdbNO.jpg" alt="Playera Azul Claro Silvestre's">
                     </div>
                     <div class="product-info">
-                        <h4>Playera Marfil</h4>
+                        <h4>Playera Azul Cielo</h4>
                         <p>Algodón de calidad superior. Suavidad extrema.</p>
-                        <span class="price">Q 179.00</span>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.8rem;">Ver Detalles</a>
+                        <span class="price">Q 150.00</span>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
-                <!-- Producto 3 -->
+                <!-- Producto 3: Azul Oscuro -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?q=80&w=1915&auto=format&fit=crop" alt="Playera Verde Silvestre">
+                        <img src="https://i.imgur.com/wUzLXcz.jpg" alt="Playera Azul Oscuro Silvestre's">
                     </div>
                     <div class="product-info">
-                        <h4>Playera Verde Silvestre</h4>
+                        <h4>Playera Azul Marino</h4>
                         <p>Edición limitada. Color exclusivo de la marca.</p>
-                        <span class="price">Q 199.00</span>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.8rem;">Ver Detalles</a>
+                        <span class="price">Q 150.00</span>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                    </div>
+                </div>
+                <!-- Producto 4: Vino -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.imgur.com/mTj2U6I.jpg" alt="Playera Vino Silvestre's">
+                    </div>
+                    <div class="product-info">
+                        <h4>Playera Vino</h4>
+                        <p>Color profundo y elegante. Ideal para ocasiones especiales.</p>
+                        <span class="price">Q 150.00</span>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                    </div>
+                </div>
+                <!-- Producto 5: Nueva Prenda -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.imgur.com/0O6i40G.jpg" alt="Nueva Prenda Silvestre's">
+                    </div>
+                    <div class="product-info">
+                        <h4>Nueva Prenda</h4>
+                        <p>Diseño exclusivo. Calidad premium.</p>
+                        <span class="price">Q 150.00</span>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCIA SENSORIAL -->
+    <!-- LIFESTYLE -->
+    <section id="lifestyle" class="lifestyle">
+        <div class="container">
+            <h2 class="section-title">Vístelo con Instinto</h2>
+            <p class="section-subtitle">Nuestras prendas se adaptan a tu día a día, desde un paseo por el parque hasta una salida urbana.</p>
+            <div class="lifestyle-grid">
+                <div class="lifestyle-image">
+                    <img src="https://i.imgur.com/ivbMrKL.jpg" alt="Amigas usando playeras Silvestre's en el parque">
+                </div>
+                <div class="lifestyle-text">
+                    <h3>Elegancia natural en cada paso</h3>
+                    <p>Nuestras playeras no solo son una prenda, son una declaración de intenciones. Diseñadas para personas que valoran la comodidad sin sacrificar el estilo.</p>
+                    <p>Ya sea que estés disfrutando de un café con amigos o explorando la ciudad, Silvestre's te acompaña con la sofisticación que te define.</p>
+                    <a href="#contacto" class="btn btn-outline" style="margin-top: 15px;">Descubre tu Estilo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCIA (POLAROID) -->
     <section id="experiencia" class="experience">
         <div class="container">
             <h2 class="section-title">Una Experiencia Silvestre</h2>
@@ -622,10 +557,117 @@
                         <li>Empaque minimalista en papel marfil.</li>
                         <li>Detalles premium en cada etiqueta.</li>
                     </ul>
-                    <p style="font-style: italic; color: var(--plata);">"El estilo no se persigue. Se reconoce."</p>
+                    <p class="quote">"El estilo no se persigue. Se reconoce."</p>
                 </div>
-                <div class="experience-image">
-                    <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=1887&auto=format&fit=crop" alt="Gato Sil V - Mascota de Marca">
+                
+                <div class="polaroid-container">
+                    <div class="polaroid-item full-width">
+                        <img src="https://i.imgur.com/dn6kgPo.jpg" alt="Tienda Silvestre's con maniquíes">
+                    </div>
+                    <div class="polaroid-item">
+                        <img src="https://i.imgur.com/20fkGvz.jpg" alt="Accesorios Silvestre's">
+                    </div>
+                    <div class="polaroid-item">
+                        <img src="https://i.imgur.com/iZGAWsW.jpg" alt="Percheros Silvestre's">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GATO SIL V -->
+    <section id="silv" class="silv-section">
+        <div class="container">
+            <h2>El Gato Sil V</h2>
+            <p>Nuestra mascota es el guardián de nuestra identidad. Un símbolo de independencia, seguridad y elegancia natural. No debe competir con el producto; debe funcionar como el guardián de la identidad de Silvestre's.</p>
+            <div class="silv-image">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop" alt="Gato Sil V - Mascota de Silvestre's">
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTAMOS CONTIGO -->
+    <section id="contigo" class="with-you">
+        <div class="container">
+            <h2 class="section-title">Estamos Contigo en Cada Momento</h2>
+            <p class="section-subtitle">Silvestre's te acompaña en cada etapa de tu día, con la elegancia y comodidad que te definen.</p>
+            <div class="with-you-grid">
+                <div class="with-you-item">
+                    <img src="https://i.imgur.com/NliH4s6.jpg" alt="Silvestre's contigo - Momento 1">
+                    <div class="with-you-item-text">
+                        <h4>Para tus días casuales</h4>
+                        <p>Comodidad y estilo en cada paso.</p>
+                    </div>
+                </div>
+                <div class="with-you-item">
+                    <img src="https://i.imgur.com/cP2tWzs.jpg" alt="Silvestre's contigo - Momento 2">
+                    <div class="with-you-item-text">
+                        <h4>Para tus momentos especiales</h4>
+                        <p>Elegancia que te acompaña.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOOKS -->
+    <section id="looks" class="look-ideas">
+        <div class="container">
+            <h2 class="section-title">Ideas para Look con Instinto</h2>
+            <p class="section-subtitle">Inspírate con nuestras combinaciones y encuentra tu estilo único.</p>
+            <div class="look-ideas-image">
+                <img src="https://i.imgur.com/dn8XICl.jpg" alt="Ideas para Look con Instinto - Silvestre's">
+            </div>
+        </div>
+    </section>
+
+    <!-- PÚBLICO OBJETIVO -->
+    <section class="target">
+        <div class="container">
+            <div class="target-grid">
+                <div class="target-text">
+                    <h3>Nuestro Público</h3>
+                    <p>Jóvenes y adultos de 18 a 30 años, independientes, seguros de sí mismos, auténticos y con carácter propio.</p>
+                    <p>Valoran la calidad por encima de la moda masiva y buscan prendas esenciales y versátiles para su día a día.</p>
+                    <ul>
+                        <li>Estudiantes universitarios y jóvenes profesionales.</li>
+                        <li>Emprendedores y creadores de contenido.</li>
+                        <li>Usuarios activos de Instagram y TikTok.</li>
+                        <li>Personas que aprecian la calidad del algodón y los detalles.</li>
+                    </ul>
+                </div>
+                <div class="target-image">
+                    <img src="https://i.imgur.com/OGUN9zU.jpg" alt="Público objetivo Silvestre's">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSE -->
+    <section class="rse">
+        <div class="container">
+            <h2 class="section-title">Responsabilidad Social</h2>
+            <p class="section-subtitle">Silvestre's asume su RSE como una extensión natural de su posicionamiento Luxury Basics / Slow Fashion.</p>
+            <div class="rse-grid">
+                <div class="rse-card">
+                    <h4>Moda Sostenible</h4>
+                    <p>Producción responsable de alta durabilidad en 100% algodón, contrarrestando el consumo masivo y reduciendo el desperdicio textil.</p>
+                </div>
+                <div class="rse-card">
+                    <h4>Materiales Éticos</h4>
+                    <p>Uso de materias primas de calidad superior con procesos orientados al respeto ambiental y el cuidado de los recursos naturales.</p>
+                </div>
+                <div class="rse-card">
+                    <h4>Empaque Ecológico</h4>
+                    <p>Diseño de packaging sostenible utilizando materiales reciclables y biodegradables, y reducción de plásticos de un solo uso.</p>
+                </div>
+                <div class="rse-card">
+                    <h4>Compromiso Local</h4>
+                    <p>Fomento del talento local mediante alianzas colaborativas con creadores, artistas y artesanos de la región (Quetzaltenango).</p>
+                </div>
+                <div class="rse-card">
+                    <h4>Bienestar Animal</h4>
+                    <p>Iniciativas de sensibilización alineadas con la identidad de marca (el gato Sil V) para apoyar causas de protección y bienestar animal.</p>
                 </div>
             </div>
         </div>
@@ -636,8 +678,21 @@
         <div class="container">
             <h2>Elegancia con Instinto.</h2>
             <p>Únete a la experiencia Silvestre's. Recibe acceso anticipado a nuevas colecciones y beneficios exclusivos.</p>
-            <a href="https://wa.me/50212345678" class="btn" target="_blank">Escríbenos por WhatsApp</a>
-            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">O síguenos en Instagram y TikTok como @silvestresclothing</p>
+            
+            <div class="social-links">
+                <a href="https://www.instagram.com/silvestresclothingsgt?stkn=ZDZzZXY4YXY2N2Jj" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    Instagram
+                </a>
+                <a href="https://www.tiktok.com/@silvestres.clothi?_r=1&_t=ZS-9AL6VhC1WlD" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    </svg>
+                    TikTok
+                </a>
+            </div>
         </div>
     </section>
 
@@ -651,6 +706,7 @@
                         <li><a href="#identidad">Nuestra Identidad</a></li>
                         <li><a href="#coleccion">Colección</a></li>
                         <li><a href="#experiencia">Experiencia</a></li>
+                        <li><a href="#silv">El Gato Sil V</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -670,11 +726,19 @@
                 </div>
                 <div class="footer-col">
                     <h4>Síguenos</h4>
-                    <ul>
-                        <li><a href="#">Instagram</a></li>
-                        <li><a href="#">TikTok</a></li>
-                        <li><a href="#">Facebook</a></li>
-                    </ul>
+                    <p style="margin-bottom: 15px;">Descubre más en nuestras redes:</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/silvestresclothingsgt?stkn=ZDZzZXY4YXY2N2Jj" target="_blank" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@silvestres.clothi?_r=1&_t=ZS-9AL6VhC1WlD" target="_blank" aria-label="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">

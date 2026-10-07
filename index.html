@@ -186,6 +186,7 @@
         .product-card {
             background-color: #fff; border: 1px solid rgba(0,0,0,0.04);
             overflow: hidden; transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .product-image {
@@ -195,10 +196,48 @@
         }
         .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .product-card:hover .product-image img { transform: scale(1.06); }
+        
+        /* Etiqueta de descuento */
+        .discount-badge {
+            position: absolute; top: 15px; right: 15px;
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            padding: 8px 14px; font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            border-radius: 2px; z-index: 2;
+        }
+
         .product-info { padding: 30px; text-align: center; }
         .product-info h4 { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--verde-silvestre); margin-bottom: 8px; }
-        .product-info p { font-size: 0.9rem; color: #888; margin-bottom: 15px; font-weight: 300; }
-        .product-info .price { font-weight: 600; color: var(--carbon); font-size: 1.15rem; margin-bottom: 20px; display: block; letter-spacing: 1px; }
+        .product-info .description { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-weight: 300; line-height: 1.6; }
+        
+        /* Tallas */
+        .sizes {
+            display: flex; justify-content: center; gap: 8px;
+            margin-bottom: 15px;
+        }
+        .size-tag {
+            display: inline-block; padding: 5px 12px;
+            border: 1px solid var(--plata); font-size: 0.7rem;
+            color: #666; letter-spacing: 1px; font-weight: 400;
+            transition: all 0.3s;
+        }
+        .size-tag:hover { background-color: var(--verde-silvestre); color: var(--marfil); border-color: var(--verde-silvestre); }
+
+        /* Precios */
+        .price-block { margin-bottom: 20px; }
+        .original-price {
+            font-size: 0.9rem; color: #999;
+            text-decoration: line-through; margin-right: 8px;
+            font-weight: 300;
+        }
+        .current-price {
+            font-weight: 600; color: var(--carbon);
+            font-size: 1.15rem; letter-spacing: 1px;
+        }
+        .discount-price {
+            font-weight: 600; color: var(--verde-silvestre);
+            font-size: 1.15rem; letter-spacing: 1px;
+        }
 
         /* --- LIFESTYLE --- */
         .lifestyle { padding: 120px 0; background-color: var(--marfil); }
@@ -466,8 +505,15 @@
                     </div>
                     <div class="product-info">
                         <h4>Playera Rosa</h4>
-                        <p>100% Algodón peinado. Corte minimalista.</p>
-                        <span class="price">Q 150.00</span>
+                        <p class="description">Confeccionada en 100% algodón peinado de calidad superior. Su corte minimalista y su tono rosa suave la convierten en la prenda perfecta para un look fresco y elegante. Ideal para combinar con jeans o faldas para un estilo casual y sofisticado.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="current-price">Q 150.00</span>
+                        </div>
                         <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
@@ -478,8 +524,15 @@
                     </div>
                     <div class="product-info">
                         <h4>Playera Azul Cielo</h4>
-                        <p>Algodón de calidad superior. Suavidad extrema.</p>
-                        <span class="price">Q 150.00</span>
+                        <p class="description">Suavidad extrema en cada fibra. Esta playera de algodón premium ofrece una comodidad inigualable y un diseño atemporal. El azul cielo aporta frescura y versatilidad a tu guardarropa diario.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="current-price">Q 150.00</span>
+                        </div>
                         <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
@@ -490,8 +543,15 @@
                     </div>
                     <div class="product-info">
                         <h4>Playera Azul Marino</h4>
-                        <p>Edición limitada. Color exclusivo de la marca.</p>
-                        <span class="price">Q 150.00</span>
+                        <p class="description">Color exclusivo de la marca en edición limitada. Su tono profundo y elegante la hace ideal para ocasiones que requieren un toque de sofisticación. Confeccionada con algodón de larga duración.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="current-price">Q 150.00</span>
+                        </div>
                         <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
@@ -502,20 +562,57 @@
                     </div>
                     <div class="product-info">
                         <h4>Playera Vino</h4>
-                        <p>Color profundo y elegante. Ideal para ocasiones especiales.</p>
-                        <span class="price">Q 150.00</span>
+                        <p class="description">Un color profundo y elegante que añade carácter a cualquier outfit. Perfecta para ocasiones especiales o para elevar un look casual. Su tejido de algodón superior garantiza comodidad durante todo el día.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="current-price">Q 150.00</span>
+                        </div>
                         <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>
-                <!-- Producto 5: Nueva Prenda -->
+                <!-- Producto 5: Nueva Prenda Negra con Descuento (10%) -->
                 <div class="product-card">
+                    <div class="discount-badge">10% OFF</div>
                     <div class="product-image">
-                        <img src="https://i.imgur.com/0O6i40G.jpg" alt="Nueva Prenda Silvestre's">
+                        <img src="https://i.imgur.com/0O6i40G.jpg" alt="Nueva Prenda Negra Silvestre's">
                     </div>
                     <div class="product-info">
-                        <h4>Nueva Prenda</h4>
-                        <p>Diseño exclusivo. Calidad premium.</p>
-                        <span class="price">Q 150.00</span>
+                        <h4>Playera Negra Esencial</h4>
+                        <p class="description">Nuestra prenda más versátil. El negro profundo y su corte minimalista la convierten en un básico indispensable. Confeccionada en 100% algodón de calidad superior, con acabados finos y durabilidad excepcional. Aprovecha el descuento de lanzamiento.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="original-price">Q 150.00</span>
+                            <span class="discount-price">Q 135.00</span>
+                        </div>
+                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                    </div>
+                </div>
+                <!-- Producto 6: NUEVO PRODUCTO CON 15% DE DESCUENTO (QK5TR7Z) -->
+                <div class="product-card">
+                    <div class="discount-badge">15% OFF</div>
+                    <div class="product-image">
+                        <img src="https://i.imgur.com/QK5TR7Z.jpg" alt="Nueva Prenda Silvestre's">
+                    </div>
+                    <div class="product-info">
+                        <h4>Playera Edición Limitada</h4>
+                        <p class="description">Una pieza exclusiva que combina diseño contemporáneo con la suavidad del algodón premium. Su corte favorecedor y su acabado minimalista la convierten en una elección ideal para quienes buscan destacar con sutileza. Aprovecha el 15% de descuento por tiempo limitado.</p>
+                        <div class="sizes">
+                            <span class="size-tag">S</span>
+                            <span class="size-tag">M</span>
+                            <span class="size-tag">L</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="original-price">Q 150.00</span>
+                            <span class="discount-price">Q 127.50</span>
+                        </div>
                         <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
                     </div>
                 </div>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silvestre's Clothings | Elegancia con Instinto</title>
     <style>
-        /* --- RESET & VARIABLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -13,7 +12,6 @@
             --carbon: #323231;
             --marfil: #EBEADE;
             --plata: #D2D1C4;
-            --verde-profundo: #161E17;
             --fuente-titulos: 'Playfair Display', serif;
             --fuente-texto: 'Inter', sans-serif;
         }
@@ -33,10 +31,8 @@
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
 
-        /* --- BOTONES --- */
         .btn {
             display: inline-block; padding: 16px 40px;
             background-color: var(--verde-silvestre); color: var(--marfil);
@@ -45,34 +41,38 @@
             transition: all 0.4s ease; cursor: pointer;
         }
         .btn:hover { background-color: transparent; color: var(--verde-silvestre); }
-
         .btn-outline {
             background-color: transparent; color: var(--verde-silvestre);
             border: 1px solid var(--verde-silvestre);
         }
         .btn-outline:hover { background-color: var(--verde-silvestre); color: var(--marfil); }
 
-        /* --- TÍTULOS --- */
+        .btn-cart {
+            background-color: var(--carbon); color: var(--marfil);
+            border: 1px solid var(--carbon);
+            padding: 12px 20px; font-size: 0.7rem;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            cursor: pointer; transition: all 0.3s; width: 100%;
+        }
+        .btn-cart:hover { background-color: var(--verde-silvestre); border-color: var(--verde-silvestre); }
+
         .section-title {
             font-family: var(--fuente-titulos); font-size: 2.8rem;
             font-weight: 400; color: var(--verde-silvestre);
             margin-bottom: 1rem; text-align: center; letter-spacing: 1px;
         }
-
         .section-subtitle {
             text-align: center; font-size: 1.05rem; font-weight: 300;
             color: #666; margin-bottom: 4rem; max-width: 650px;
             margin-left: auto; margin-right: auto; line-height: 1.8;
         }
 
-        /* --- HEADER / NAV --- */
         header {
             background-color: var(--carbon); color: var(--marfil);
             padding: 18px 0; position: fixed; width: 100%; top: 0;
             z-index: 1000; border-bottom: 1px solid rgba(235, 234, 222, 0.08);
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        
         .logo-text {
             font-family: var(--fuente-titulos); font-size: 1.5rem;
             font-weight: 700; letter-spacing: 3px; color: var(--marfil); line-height: 1;
@@ -82,7 +82,6 @@
             letter-spacing: 5px; text-transform: uppercase; color: var(--plata);
             margin-top: 4px;
         }
-
         .nav-links { display: flex; gap: 30px; }
         .nav-links a {
             font-size: 0.75rem; font-weight: 400; text-transform: uppercase;
@@ -96,7 +95,6 @@
         }
         .nav-links a:hover { color: var(--marfil); }
         .nav-links a:hover::after { width: 100%; }
-
         .nav-cta {
             font-size: 0.7rem; padding: 10px 20px; border: 1px solid var(--plata);
             color: var(--plata); transition: all 0.3s; letter-spacing: 1px;
@@ -104,9 +102,136 @@
         }
         .nav-cta:hover { background-color: var(--marfil); color: var(--carbon); border-color: var(--marfil); }
 
-        /* --- LOGO DESTACADO (POLAROID) --- */
+        /* --- CARRITO --- */
+        .cart-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 1001;
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            width: 55px; height: 55px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .cart-toggle:hover { transform: scale(1.1); }
+        .cart-toggle svg { width: 24px; height: 24px; fill: var(--marfil); }
+        .cart-count {
+            position: absolute; top: -5px; right: -5px;
+            background-color: var(--carbon); color: var(--marfil);
+            font-size: 0.7rem; font-weight: 600;
+            width: 22px; height: 22px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .cart-modal {
+            position: fixed; top: 0; right: -500px; width: 450px;
+            height: 100vh; background-color: #fff; z-index: 2000;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            transition: right 0.4s ease; display: flex; flex-direction: column;
+        }
+        .cart-modal.open { right: 0; }
+        .cart-header {
+            padding: 25px; background-color: var(--carbon); color: var(--marfil);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cart-header h3 {
+            font-family: var(--fuente-titulos); font-size: 1.5rem;
+            font-weight: 400; letter-spacing: 1px;
+        }
+        .cart-close {
+            background: none; border: none; color: var(--marfil);
+            font-size: 1.8rem; cursor: pointer; line-height: 1;
+        }
+        .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+        .cart-item {
+            display: flex; gap: 15px; margin-bottom: 20px;
+            padding-bottom: 20px; border-bottom: 1px solid #eee;
+        }
+        .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 4px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h5 {
+            font-family: var(--fuente-titulos); font-size: 1rem;
+            color: var(--verde-silvestre); margin-bottom: 5px;
+        }
+        .cart-item-info .item-size { font-size: 0.75rem; color: #888; margin-bottom: 5px; }
+        .cart-item-info .item-price { font-size: 0.9rem; font-weight: 600; color: var(--carbon); }
+        .cart-item-remove {
+            background: none; border: none; color: #999;
+            font-size: 1.2rem; cursor: pointer; padding: 0 5px;
+        }
+        .cart-item-remove:hover { color: #c00; }
+        .cart-footer { padding: 25px; border-top: 1px solid #eee; background-color: #fafafa; }
+        .cart-total {
+            display: flex; justify-content: space-between;
+            font-size: 1.2rem; font-weight: 600; margin-bottom: 20px;
+            color: var(--carbon);
+        }
+        .btn-checkout {
+            width: 100%; padding: 16px;
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            border: none; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 500; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-checkout:hover { background-color: var(--carbon); }
+        .empty-cart { text-align: center; padding: 40px 20px; color: #888; font-size: 0.95rem; }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5); z-index: 1500;
+            opacity: 0; visibility: hidden; transition: all 0.3s;
+        }
+        .overlay.active { opacity: 1; visibility: visible; }
+
+        /* --- FORMULARIO CHECKOUT --- */
+        .checkout-form {
+            display: none; padding: 25px; background-color: #fafafa;
+            border-top: 1px solid #eee; max-height: 60vh; overflow-y: auto;
+        }
+        .checkout-form.active { display: block; }
+        .checkout-form h4 {
+            font-family: var(--fuente-titulos); font-size: 1.2rem;
+            color: var(--verde-silvestre); margin-bottom: 15px;
+        }
+        .payment-info {
+            background-color: #EBEADE; padding: 15px; border-radius: 4px;
+            margin-bottom: 20px; border-left: 4px solid var(--verde-silvestre);
+        }
+        .payment-info p { font-size: 0.85rem; color: #555; margin-bottom: 5px; }
+        .payment-info strong { color: var(--verde-silvestre); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label {
+            display: block; font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; color: #666; margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd;
+            font-family: var(--fuente-texto); font-size: 0.9rem;
+            background-color: #fff; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--verde-silvestre);
+        }
+        .form-group textarea { resize: vertical; min-height: 60px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-submit {
+            width: 100%; padding: 16px;
+            background-color: #25D366; color: #fff;
+            border: none; font-size: 0.85rem;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 600; cursor: pointer; transition: all 0.3s;
+            margin-top: 10px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-submit:hover { background-color: #1da851; }
+        .btn-submit svg { width: 20px; height: 20px; fill: #fff; }
+        .btn-back {
+            width: 100%; padding: 12px; background: none;
+            border: 1px solid #ddd; color: #666;
+            font-size: 0.75rem; text-transform: uppercase;
+            letter-spacing: 1px; cursor: pointer; margin-top: 10px;
+        }
+        .btn-back:hover { background-color: #f0f0f0; }
+
+        /* --- RESTO DE SECCIONES --- */
         .logo-showcase { padding: 120px 0 80px; background-color: var(--carbon); text-align: center; }
-        
         .logo-polaroid {
             display: inline-block; background-color: #fff;
             padding: 30px 30px 70px 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -123,7 +248,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 2px;
         }
 
-        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(22, 30, 23, 0.65), rgba(22, 30, 23, 0.75)), url('https://i.imgur.com/OGUN9zU.jpg') center/cover no-repeat;
@@ -140,12 +264,8 @@
         .hero .btn { background-color: var(--marfil); color: var(--carbon); border-color: var(--marfil); }
         .hero .btn:hover { background-color: transparent; color: var(--marfil); }
 
-        /* --- IDENTIDAD / PILARES --- */
         .identity { padding: 120px 0; background-color: var(--marfil); }
-        .identity-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px; margin-top: 60px;
-        }
+        .identity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 60px; }
         .identity-card {
             text-align: center; padding: 40px 20px;
             transition: transform 0.4s, box-shadow 0.4s; background-color: #fff;
@@ -159,34 +279,20 @@
             display: inline-block; border-bottom: 2px solid var(--plata); padding-bottom: 10px;
         }
 
-        /* --- MENSAJE CENTRAL --- */
         .central-message {
             padding: 120px 0; background-color: var(--verde-silvestre);
             color: var(--marfil); text-align: center;
         }
-        .central-message h2 {
-            font-family: var(--fuente-titulos); font-size: 3.5rem;
-            font-weight: 400; margin-bottom: 30px;
-        }
-        .central-message p {
-            font-size: 1.2rem; font-weight: 300; max-width: 800px;
-            margin: 0 auto 20px; opacity: 0.9;
-        }
-        .central-message .promise {
-            font-style: italic; font-size: 1.1rem;
-            margin-top: 30px; opacity: 0.8;
-        }
+        .central-message h2 { font-family: var(--fuente-titulos); font-size: 3.5rem; font-weight: 400; margin-bottom: 30px; }
+        .central-message p { font-size: 1.2rem; font-weight: 300; max-width: 800px; margin: 0 auto 20px; opacity: 0.9; }
+        .central-message .promise { font-style: italic; font-size: 1.1rem; margin-top: 30px; opacity: 0.8; }
 
-        /* --- COLECCIÓN --- */
         .collection { padding: 120px 0; background-color: #f7f7f5; }
-        .product-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px; margin-top: 60px;
-        }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; margin-top: 60px; }
         .product-card {
             background-color: #fff; border: 1px solid rgba(0,0,0,0.04);
             overflow: hidden; transition: transform 0.4s, box-shadow 0.4s;
-            position: relative;
+            position: relative; display: flex; flex-direction: column;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .product-image {
@@ -196,8 +302,6 @@
         }
         .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .product-card:hover .product-image img { transform: scale(1.06); }
-        
-        /* Etiqueta de descuento */
         .discount-badge {
             position: absolute; top: 15px; right: 15px;
             background-color: var(--verde-silvestre); color: var(--marfil);
@@ -205,41 +309,65 @@
             letter-spacing: 1px; text-transform: uppercase;
             border-radius: 2px; z-index: 2;
         }
-
-        .product-info { padding: 30px; text-align: center; }
+        .product-info { padding: 30px; text-align: center; display: flex; flex-direction: column; flex: 1; }
         .product-info h4 { font-family: var(--fuente-titulos); font-size: 1.4rem; color: var(--verde-silvestre); margin-bottom: 8px; }
-        .product-info .description { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-weight: 300; line-height: 1.6; }
-        
-        /* Tallas */
-        .sizes {
-            display: flex; justify-content: center; gap: 8px;
-            margin-bottom: 15px;
-        }
+        .product-info .description { font-size: 0.85rem; color: #888; margin-bottom: 15px; font-weight: 300; line-height: 1.6; flex: 1; }
+        .sizes { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
         .size-tag {
             display: inline-block; padding: 5px 12px;
             border: 1px solid var(--plata); font-size: 0.7rem;
             color: #666; letter-spacing: 1px; font-weight: 400;
-            transition: all 0.3s;
+            transition: all 0.3s; cursor: pointer;
         }
-        .size-tag:hover { background-color: var(--verde-silvestre); color: var(--marfil); border-color: var(--verde-silvestre); }
+        .size-tag:hover, .size-tag.selected {
+            background-color: var(--verde-silvestre); color: var(--marfil);
+            border-color: var(--verde-silvestre);
+        }
 
-        /* Precios */
-        .price-block { margin-bottom: 20px; }
-        .original-price {
-            font-size: 0.9rem; color: #999;
-            text-decoration: line-through; margin-right: 8px;
-            font-weight: 300;
+        /* --- SELECTOR DE CANTIDAD --- */
+        .quantity-selector {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0; margin-bottom: 15px;
+            border: 1px solid var(--plata); width: fit-content;
+            margin-left: auto; margin-right: auto;
         }
-        .current-price {
+        .quantity-selector button {
+            background-color: #fff; border: none; color: var(--carbon);
+            width: 36px; height: 36px; font-size: 1.1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .quantity-selector button:hover {
+            background-color: var(--verde-silvestre); color: var(--marfil);
+        }
+        .quantity-selector input {
+            width: 50px; height: 36px; text-align: center;
+            border: none; border-left: 1px solid var(--plata);
+            border-right: 1px solid var(--plata);
+            font-family: var(--fuente-texto); font-size: 0.9rem;
             font-weight: 600; color: var(--carbon);
-            font-size: 1.15rem; letter-spacing: 1px;
+            background-color: #fff; -moz-appearance: textfield;
         }
-        .discount-price {
-            font-weight: 600; color: var(--verde-silvestre);
-            font-size: 1.15rem; letter-spacing: 1px;
+        .quantity-selector input::-webkit-outer-spin-button,
+        .quantity-selector input::-webkit-inner-spin-button {
+            -webkit-appearance: none; margin: 0;
+        }
+        .quantity-selector input:focus {
+            outline: none; background-color: var(--marfil);
+        }
+        .quantity-label {
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; color: #888; margin-bottom: 8px;
+            display: block; text-align: center;
         }
 
-        /* --- LIFESTYLE --- */
+        .price-block { margin-bottom: 20px; }
+        .original-price { font-size: 0.9rem; color: #999; text-decoration: line-through; margin-right: 8px; font-weight: 300; }
+        .current-price { font-weight: 600; color: var(--carbon); font-size: 1.15rem; letter-spacing: 1px; }
+        .discount-price { font-weight: 600; color: var(--verde-silvestre); font-size: 1.15rem; letter-spacing: 1px; }
+        .product-actions { display: flex; gap: 10px; margin-top: auto; }
+        .product-actions .btn-cart { flex: 1; }
+
         .lifestyle { padding: 120px 0; background-color: var(--marfil); }
         .lifestyle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .lifestyle-image { width: 100%; height: 550px; border-radius: 4px; overflow: hidden; }
@@ -248,11 +376,9 @@
         .lifestyle-text h3 { font-family: var(--fuente-titulos); font-size: 2.2rem; color: var(--verde-silvestre); margin-bottom: 25px; line-height: 1.3; }
         .lifestyle-text p { color: #666; margin-bottom: 25px; font-weight: 300; font-size: 1.05rem; line-height: 1.8; }
 
-        /* --- EXPERIENCIA (POLAROID) --- */
         .experience { padding: 120px 0; background-color: var(--carbon); color: var(--marfil); }
         .experience .section-title { color: var(--marfil); }
         .experience .section-subtitle { color: var(--plata); }
-        
         .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; margin-top: 60px; }
         .experience-text h3 { font-family: var(--fuente-titulos); font-size: 2rem; color: var(--marfil); margin-bottom: 25px; line-height: 1.3; }
         .experience-text p { color: var(--plata); font-weight: 300; margin-bottom: 25px; line-height: 1.8; }
@@ -260,7 +386,6 @@
         .experience-text ul li { color: var(--plata); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 300; }
         .experience-text ul li::before { content: "✦"; color: var(--verde-silvestre); font-size: 1.1rem; }
         .experience-text .quote { font-style: italic; color: var(--plata); margin-top: 25px; font-size: 1.1rem; }
-
         .polaroid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; align-items: start; }
         .polaroid-item {
             background-color: #fff; padding: 18px 18px 50px 18px;
@@ -280,52 +405,25 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 2px;
         }
 
-        /* --- GATO SIL V --- */
-        .silv-section {
-            padding: 120px 0; background-color: #f7f7f5;
-            text-align: center;
-        }
-        .silv-section h2 {
-            font-family: var(--fuente-titulos); font-size: 3rem;
-            font-weight: 400; color: var(--verde-silvestre);
-            margin-bottom: 20px;
-        }
-        .silv-section p {
-            font-size: 1.05rem; color: #666;
-            max-width: 700px; margin: 0 auto 60px;
-            font-weight: 300; line-height: 1.8;
-        }
-        .silv-image {
-            max-width: 500px; margin: 0 auto;
-            border-radius: 8px; overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
+        .silv-section { padding: 120px 0; background-color: #f7f7f5; text-align: center; }
+        .silv-section h2 { font-family: var(--fuente-titulos); font-size: 3rem; font-weight: 400; color: var(--verde-silvestre); margin-bottom: 20px; }
+        .silv-section p { font-size: 1.05rem; color: #666; max-width: 700px; margin: 0 auto 60px; font-weight: 300; line-height: 1.8; }
+        .silv-image { max-width: 500px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
         .silv-image img { width: 100%; height: auto; display: block; }
 
-        /* --- ESTAMOS CONTIGO --- */
         .with-you { padding: 120px 0; background-color: var(--marfil); }
-        .with-you-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 60px;
-        }
-        .with-you-item {
-            background-color: #fff; border-radius: 4px; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: transform 0.4s;
-        }
+        .with-you-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 60px; }
+        .with-you-item { background-color: #fff; border-radius: 4px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: transform 0.4s; }
         .with-you-item:hover { transform: translateY(-8px); }
         .with-you-item img { width: 100%; height: 450px; object-fit: cover; display: block; }
         .with-you-item-text { padding: 30px; text-align: center; }
         .with-you-item-text h4 { font-family: var(--fuente-titulos); font-size: 1.5rem; color: var(--verde-silvestre); margin-bottom: 12px; }
         .with-you-item-text p { font-size: 0.95rem; color: #777; font-weight: 300; }
 
-        /* --- LOOKS --- */
         .look-ideas { padding: 120px 0; background-color: #f7f7f5; }
-        .look-ideas-image {
-            max-width: 1000px; margin: 0 auto; border-radius: 8px; overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
-        }
+        .look-ideas-image { max-width: 1000px; margin: 0 auto; border-radius: 8px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.12); }
         .look-ideas-image img { width: 100%; height: auto; display: block; }
 
-        /* --- PÚBLICO OBJETIVO --- */
         .target { padding: 120px 0; background-color: var(--marfil); }
         .target-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .target-text h3 { font-family: var(--fuente-titulos); font-size: 2.2rem; color: var(--verde-silvestre); margin-bottom: 25px; }
@@ -336,44 +434,28 @@
         .target-image { width: 100%; height: 500px; border-radius: 4px; overflow: hidden; }
         .target-image img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- RSE --- */
         .rse { padding: 120px 0; background-color: var(--verde-silvestre); color: var(--marfil); }
         .rse .section-title { color: var(--marfil); }
         .rse .section-subtitle { color: var(--plata); }
-        .rse-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px; margin-top: 60px;
-        }
-        .rse-card {
-            background-color: rgba(235, 234, 222, 0.08);
-            padding: 40px 30px; border: 1px solid rgba(235, 234, 222, 0.15);
-            transition: background-color 0.3s;
-        }
+        .rse-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 60px; }
+        .rse-card { background-color: rgba(235, 234, 222, 0.08); padding: 40px 30px; border: 1px solid rgba(235, 234, 222, 0.15); transition: background-color 0.3s; }
         .rse-card:hover { background-color: rgba(235, 234, 222, 0.15); }
         .rse-card h4 { font-family: var(--fuente-titulos); font-size: 1.3rem; color: var(--marfil); margin-bottom: 15px; }
         .rse-card p { font-size: 0.9rem; color: var(--plata); font-weight: 300; line-height: 1.7; }
 
-        /* --- CTA / CONTACTO --- */
         .cta-section { padding: 120px 0; background-color: var(--marfil); text-align: center; }
         .cta-section h2 { font-family: var(--fuente-titulos); font-size: 3.2rem; font-weight: 400; color: var(--verde-silvestre); margin-bottom: 1.2rem; letter-spacing: 1px; }
         .cta-section p { font-size: 1.15rem; font-weight: 300; margin-bottom: 3rem; color: #666; max-width: 600px; margin-left: auto; margin-right: auto; }
-        
-        .social-links { 
-            margin-top: 40px; display: flex; justify-content: center; gap: 40px; 
-        }
-        .social-links a { 
-            color: var(--carbon); font-size: 1rem; 
+        .social-links { margin-top: 40px; display: flex; justify-content: center; gap: 40px; }
+        .social-links a {
+            color: var(--carbon); font-size: 1rem;
             display: flex; align-items: center; gap: 10px;
             padding: 12px 24px; border: 1px solid var(--carbon);
             border-radius: 4px; transition: all 0.3s;
         }
-        .social-links a:hover { 
-            background-color: var(--verde-silvestre); color: var(--marfil);
-            border-color: var(--verde-silvestre);
-        }
+        .social-links a:hover { background-color: var(--verde-silvestre); color: var(--marfil); border-color: var(--verde-silvestre); }
         .social-links svg { width: 20px; height: 20px; fill: currentColor; }
 
-        /* --- FOOTER --- */
         footer { background-color: var(--carbon); color: var(--plata); padding: 80px 0 40px; font-size: 0.9rem; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; margin-bottom: 50px; }
         .footer-col h4 { color: var(--marfil); font-family: var(--fuente-titulos); font-size: 1.2rem; margin-bottom: 25px; }
@@ -381,7 +463,7 @@
         .footer-col ul li a { transition: color 0.3s; }
         .footer-col ul li a:hover { color: var(--marfil); }
         .footer-social { display: flex; gap: 15px; margin-top: 15px; }
-        .footer-social a { 
+        .footer-social a {
             display: inline-flex; align-items: center; justify-content: center;
             width: 40px; height: 40px; border: 1px solid rgba(235, 234, 222, 0.2);
             border-radius: 50%; transition: all 0.3s;
@@ -390,7 +472,6 @@
         .footer-social svg { width: 18px; height: 18px; fill: currentColor; }
         .footer-bottom { border-top: 1px solid rgba(235, 234, 222, 0.08); padding-top: 40px; text-align: center; font-size: 0.8rem; color: #777; }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero h1 { font-size: 3rem; }
             .hero p { font-size: 1rem; }
@@ -402,10 +483,82 @@
             .section-title { font-size: 2rem; }
             .logo-text { font-size: 1.1rem; }
             .social-links { flex-direction: column; align-items: center; gap: 20px; }
+            .cart-modal { width: 100%; right: -100%; }
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- CARRITO FLOTANTE -->
+    <div class="cart-toggle" onclick="toggleCart()">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <!-- MODAL DEL CARRITO -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="cart-close" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Tu carrito está vacío.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">Q 0.00</span>
+            </div>
+            <button class="btn-checkout" id="btnCheckout" onclick="showCheckoutForm()">Finalizar compra</button>
+
+            <!-- FORMULARIO DE CHECKOUT -->
+            <div class="checkout-form" id="checkoutForm">
+                <h4>Datos de Envío</h4>
+                
+                <div class="payment-info">
+                    <p><strong>💳 Método de Pago:</strong> Transferencia Bancaria</p>
+                    <p>Al confirmar, te enviaremos los datos bancarios por WhatsApp para realizar el pago.</p>
+                </div>
+
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ciudad">Ciudad *</label>
+                            <input type="text" id="ciudad" name="ciudad" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección de envío *</label>
+                        <input type="text" id="direccion" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notas">Notas adicionales (opcional)</label>
+                        <textarea id="notas" name="notas" placeholder="Referencias de entrega, horario preferido, etc."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Enviar Pedido por WhatsApp
+                    </button>
+                    <button type="button" class="btn-back" onclick="hideCheckoutForm()">Volver al carrito</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- HEADER -->
     <header>
@@ -430,7 +583,7 @@
         </div>
     </header>
 
-    <!-- LOGO DESTACADO (POLAROID) -->
+    <!-- LOGO DESTACADO -->
     <section class="logo-showcase">
         <div class="container">
             <div class="logo-polaroid">
@@ -439,7 +592,7 @@
         </div>
     </section>
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>El estilo tiene <span>instinto</span>.</h1>
@@ -448,7 +601,7 @@
         </div>
     </section>
 
-    <!-- IDENTIDAD / PILARES -->
+    <!-- IDENTIDAD -->
     <section id="identidad" class="identity">
         <div class="container">
             <h2 class="section-title">Nuestra Esencia</h2>
@@ -499,26 +652,34 @@
             <p class="section-subtitle">Prendas esenciales que combinan comodidad, durabilidad y un diseño sofisticado. Descubre la colección.</p>
             <div class="product-grid">
                 <!-- Producto 1: Rosa -->
-                <div class="product-card">
+                <div class="product-card" data-id="1" data-name="Playera Rosa" data-price="150">
                     <div class="product-image">
                         <img src="https://i.imgur.com/Uu8ufXj.jpg" alt="Playera Rosa Silvestre's">
                     </div>
                     <div class="product-info">
                         <h4>Playera Rosa</h4>
-                        <p class="description">Confeccionada en 100% algodón peinado de calidad superior. Su corte minimalista y su tono rosa suave la convierten en la prenda perfecta para un look fresco y elegante. Ideal para combinar con jeans o faldas para un estilo casual y sofisticado.</p>
+                        <p class="description">Confeccionada en 100% algodón peinado de calidad superior. Su corte minimalista y su tono rosa suave la convierten en la prenda perfecta para un look fresco y elegante.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="current-price">Q 150.00</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Producto 2: Azul Claro -->
-                <div class="product-card">
+                <div class="product-card" data-id="2" data-name="Playera Azul Cielo" data-price="150">
                     <div class="product-image">
                         <img src="https://i.imgur.com/hoEdbNO.jpg" alt="Playera Azul Claro Silvestre's">
                     </div>
@@ -526,18 +687,26 @@
                         <h4>Playera Azul Cielo</h4>
                         <p class="description">Suavidad extrema en cada fibra. Esta playera de algodón premium ofrece una comodidad inigualable y un diseño atemporal. El azul cielo aporta frescura y versatilidad a tu guardarropa diario.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="current-price">Q 150.00</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Producto 3: Azul Oscuro -->
-                <div class="product-card">
+                <div class="product-card" data-id="3" data-name="Playera Azul Marino" data-price="150">
                     <div class="product-image">
                         <img src="https://i.imgur.com/wUzLXcz.jpg" alt="Playera Azul Oscuro Silvestre's">
                     </div>
@@ -545,18 +714,26 @@
                         <h4>Playera Azul Marino</h4>
                         <p class="description">Color exclusivo de la marca en edición limitada. Su tono profundo y elegante la hace ideal para ocasiones que requieren un toque de sofisticación. Confeccionada con algodón de larga duración.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="current-price">Q 150.00</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Producto 4: Vino -->
-                <div class="product-card">
+                <div class="product-card" data-id="4" data-name="Playera Vino" data-price="150">
                     <div class="product-image">
                         <img src="https://i.imgur.com/mTj2U6I.jpg" alt="Playera Vino Silvestre's">
                     </div>
@@ -564,56 +741,80 @@
                         <h4>Playera Vino</h4>
                         <p class="description">Un color profundo y elegante que añade carácter a cualquier outfit. Perfecta para ocasiones especiales o para elevar un look casual. Su tejido de algodón superior garantiza comodidad durante todo el día.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="current-price">Q 150.00</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
-                <!-- Producto 5: Nueva Prenda Negra con Descuento (10%) -->
-                <div class="product-card">
+                <!-- Producto 5: Negra con 10% descuento -->
+                <div class="product-card" data-id="5" data-name="Playera Negra Esencial" data-price="135" data-original-price="150">
                     <div class="discount-badge">10% OFF</div>
                     <div class="product-image">
                         <img src="https://i.imgur.com/0O6i40G.jpg" alt="Nueva Prenda Negra Silvestre's">
                     </div>
                     <div class="product-info">
                         <h4>Playera Negra Esencial</h4>
-                        <p class="description">Nuestra prenda más versátil. El negro profundo y su corte minimalista la convierten en un básico indispensable. Confeccionada en 100% algodón de calidad superior, con acabados finos y durabilidad excepcional. Aprovecha el descuento de lanzamiento.</p>
+                        <p class="description">Nuestra prenda más versátil. El negro profundo y su corte minimalista la convierten en un básico indispensable. Confeccionada en 100% algodón de calidad superior, con acabados finos y durabilidad excepcional.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="original-price">Q 150.00</span>
                             <span class="discount-price">Q 135.00</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
-                <!-- Producto 6: NUEVO PRODUCTO CON 15% DE DESCUENTO (QK5TR7Z) -->
-                <div class="product-card">
+                <!-- Producto 6: Edición Limitada con 15% descuento -->
+                <div class="product-card" data-id="6" data-name="Playera Edición Limitada" data-price="127.50" data-original-price="150">
                     <div class="discount-badge">15% OFF</div>
                     <div class="product-image">
                         <img src="https://i.imgur.com/QK5TR7Z.jpg" alt="Nueva Prenda Silvestre's">
                     </div>
                     <div class="product-info">
                         <h4>Playera Edición Limitada</h4>
-                        <p class="description">Una pieza exclusiva que combina diseño contemporáneo con la suavidad del algodón premium. Su corte favorecedor y su acabado minimalista la convierten en una elección ideal para quienes buscan destacar con sutileza. Aprovecha el 15% de descuento por tiempo limitado.</p>
+                        <p class="description">Una pieza exclusiva que combina diseño contemporáneo con la suavidad del algodón premium. Su corte favorecedor y su acabado minimalista la convierten en una elección ideal para quienes buscan destacar con sutileza.</p>
                         <div class="sizes">
-                            <span class="size-tag">S</span>
-                            <span class="size-tag">M</span>
-                            <span class="size-tag">L</span>
+                            <span class="size-tag" onclick="selectSize(this)">S</span>
+                            <span class="size-tag" onclick="selectSize(this)">M</span>
+                            <span class="size-tag" onclick="selectSize(this)">L</span>
+                        </div>
+                        <span class="quantity-label">Cantidad:</span>
+                        <div class="quantity-selector">
+                            <button type="button" onclick="changeQuantity(this, -1)">−</button>
+                            <input type="number" value="1" min="1" max="99">
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
                         </div>
                         <div class="price-block">
                             <span class="original-price">Q 150.00</span>
                             <span class="discount-price">Q 127.50</span>
                         </div>
-                        <a href="#contacto" class="btn btn-outline" style="padding: 10px 24px; font-size: 0.75rem;">Ver Detalles</a>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(this)">Agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -639,7 +840,7 @@
         </div>
     </section>
 
-    <!-- EXPERIENCIA (POLAROID) -->
+    <!-- EXPERIENCIA -->
     <section id="experiencia" class="experience">
         <div class="container">
             <h2 class="section-title">Una Experiencia Silvestre</h2>
@@ -656,7 +857,6 @@
                     </ul>
                     <p class="quote">"El estilo no se persigue. Se reconoce."</p>
                 </div>
-                
                 <div class="polaroid-container">
                     <div class="polaroid-item full-width">
                         <img src="https://i.imgur.com/dn6kgPo.jpg" alt="Tienda Silvestre's con maniquíes">
@@ -775,7 +975,6 @@
         <div class="container">
             <h2>Elegancia con Instinto.</h2>
             <p>Únete a la experiencia Silvestre's. Recibe acceso anticipado a nuevas colecciones y beneficios exclusivos.</p>
-            
             <div class="social-links">
                 <a href="https://www.instagram.com/silvestresclothingsgt?stkn=ZDZzZXY4YXY2N2Jj" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -843,6 +1042,200 @@
             </div>
         </div>
     </footer>
+
+    <!-- SCRIPT DEL CARRITO -->
+    <script>
+        // ✅ Tu número de WhatsApp real
+        const WHATSAPP_NUMBER = "50236870318"; 
+
+        let cart = [];
+
+        // Seleccionar talla
+        function selectSize(element) {
+            const parent = element.parentElement;
+            const sizes = parent.querySelectorAll('.size-tag');
+            sizes.forEach(s => s.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        // Cambiar cantidad
+        function changeQuantity(button, delta) {
+            const selector = button.parentElement;
+            const input = selector.querySelector('input');
+            let value = parseInt(input.value) || 1;
+            value += delta;
+            if (value < 1) value = 1;
+            if (value > 99) value = 99;
+            input.value = value;
+        }
+
+        // Agregar al carrito
+        function addToCart(button) {
+            const card = button.closest('.product-card');
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseFloat(card.dataset.price);
+            const image = card.querySelector('.product-image img').src;
+            const selectedSize = card.querySelector('.size-tag.selected');
+            const quantityInput = card.querySelector('.quantity-selector input');
+            const quantity = parseInt(quantityInput.value) || 1;
+
+            if (!selectedSize) {
+                alert('Por favor selecciona una talla antes de agregar al carrito.');
+                return;
+            }
+
+            const size = selectedSize.textContent;
+            const existingItem = cart.find(item => item.id === id && item.size === size);
+
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ id, name, price, image, size, quantity: quantity });
+            }
+
+            // Resetear cantidad a 1
+            quantityInput.value = 1;
+            // Quitar selección de talla
+            card.querySelectorAll('.size-tag').forEach(s => s.classList.remove('selected'));
+
+            updateCart();
+            showNotification(`${quantity} ${quantity > 1 ? 'prendas agregadas' : 'prenda agregada'} al carrito`);
+        }
+
+        // Actualizar carrito
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Tu carrito está vacío.</div>';
+                cartTotal.textContent = 'Q 0.00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h5>${item.name}</h5>
+                            <p class="item-size">Talla: ${item.size} | Cantidad: ${item.quantity}</p>
+                            <p class="item-price">Q ${subtotal.toFixed(2)}</p>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${index})">&times;</button>
+                    </div>
+                `;
+            });
+
+            cartItems.innerHTML = html;
+            cartTotal.textContent = `Q ${total.toFixed(2)}`;
+        }
+
+        // Eliminar del carrito
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Abrir/cerrar carrito
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            const overlay = document.getElementById('overlay');
+            modal.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        // Notificación
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.style.cssText = `
+                position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+                background-color: var(--verde-silvestre); color: var(--marfil);
+                padding: 15px 30px; border-radius: 4px; z-index: 3000;
+                font-size: 0.9rem; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                transition: opacity 0.3s;
+            `;
+            notif.textContent = message;
+            document.body.appendChild(notif);
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                setTimeout(() => notif.remove(), 300);
+            }, 2000);
+        }
+
+        // Mostrar formulario checkout
+        function showCheckoutForm() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío. Agrega productos antes de finalizar la compra.');
+                return;
+            }
+            document.getElementById('checkoutForm').classList.add('active');
+            document.getElementById('btnCheckout').style.display = 'none';
+        }
+
+        function hideCheckoutForm() {
+            document.getElementById('checkoutForm').classList.remove('active');
+            document.getElementById('btnCheckout').style.display = 'block';
+        }
+
+        // Enviar pedido por WhatsApp
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const ciudad = document.getElementById('ciudad').value;
+            const direccion = document.getElementById('direccion').value;
+            const notas = document.getElementById('notas').value;
+
+            let productosTexto = '';
+            let total = 0;
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                productosTexto += `• ${item.name} (Talla: ${item.size}) x${item.quantity} — Q ${subtotal.toFixed(2)}\n`;
+            });
+
+            let mensaje = `¡Hola Silvestre's Clothings! 🛍️\n\n`;
+            mensaje += `Quiero realizar el siguiente pedido:\n\n`;
+            mensaje += `${productosTexto}\n`;
+            mensaje += `*Total: Q ${total.toFixed(2)}*\n\n`;
+            mensaje += `━━━━━━━━━━━━━━━━━━━━\n`;
+            mensaje += `*DATOS DE ENVÍO:*\n`;
+            mensaje += `👤 Nombre: ${nombre}\n`;
+            mensaje += `📞 Teléfono: ${telefono}\n`;
+            mensaje += `📍 Ciudad: ${ciudad}\n`;
+            mensaje += `🏠 Dirección: ${direccion}\n`;
+            if (notas) mensaje += `📝 Notas: ${notas}\n`;
+            mensaje += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+            mensaje += `*Método de pago:* Transferencia Bancaria 💳\n`;
+            mensaje += `Por favor envíenme los datos bancarios para realizar el pago.\n\n`;
+            mensaje += `— Elegancia con Instinto.`;
+
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensajeCodificado}`;
+
+            window.open(url, '_blank');
+
+            cart = [];
+            updateCart();
+            hideCheckoutForm();
+            toggleCart();
+            document.getElementById('orderForm').reset();
+        });
+
+        updateCart();
+    </script>
 
 </body>
 </html>
